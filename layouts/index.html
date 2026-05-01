@@ -1,0 +1,555 @@
+{{- $author := .Site.Data.authors.me -}}
+{{- $name := .Site.Title -}}
+{{- with $author.name.display }}{{ $name = . }}{{ end -}}
+{{- $role := $author.role | default .Site.Params.identity.tagline -}}
+{{- $avatar := resources.Get "media/authors/me.png" -}}
+{{- $avatarURL := "" -}}
+{{- with $avatar -}}
+  {{- $processed := .Fill "360x360 Center" -}}
+  {{- $avatarURL = $processed.RelPermalink -}}
+{{- end -}}
+{{- $publications := where .Site.RegularPages "Section" "publications" -}}
+{{- $projects := where .Site.RegularPages "Section" "projects" -}}
+<!doctype html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $name }} | Robotics and Control</title>
+    <meta name="description" content="{{ .Site.Params.identity.description | default $author.bio | plainify }}">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #0f172a;
+        --muted: #475569;
+        --soft: #64748b;
+        --line: #dbeafe;
+        --paper: #ffffff;
+        --wash: #f8fafc;
+        --blue: #0369a1;
+        --blue-strong: #075985;
+        --blue-soft: #e0f2fe;
+        --accent: #0284c7;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--wash);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 17px;
+        line-height: 1.62;
+      }
+
+      a {
+        color: var(--blue);
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: var(--blue-strong);
+        text-decoration: underline;
+      }
+
+      .shell {
+        width: min(960px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 58px;
+      }
+
+      .brand {
+        color: var(--ink);
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 14px;
+      }
+
+      .nav a {
+        color: var(--muted);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 190px minmax(0, 1fr);
+        gap: 34px;
+        padding: 48px 0 34px;
+        align-items: start;
+      }
+
+      .avatar {
+        width: 178px;
+        height: 178px;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        background: var(--blue-soft);
+        object-fit: cover;
+      }
+
+      .hero h1 {
+        margin: 0 0 4px;
+        color: var(--ink);
+        font-size: 36px;
+        line-height: 1.15;
+        font-weight: 700;
+      }
+
+      .role {
+        margin: 0 0 12px;
+        color: var(--blue);
+        font-weight: 700;
+      }
+
+      .bio {
+        margin: 0 0 14px;
+        color: var(--muted);
+      }
+
+      .bio p,
+      .summary p {
+        margin: 0 0 10px;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .link-button,
+      .item-links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        border: 1px solid #93c5fd;
+        border-radius: 4px;
+        padding: 3px 9px;
+        background: #ffffff;
+        color: var(--blue-strong);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .link-button.primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #ffffff;
+      }
+
+      .section {
+        padding: 30px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .section h2 {
+        margin: 0 0 16px;
+        color: var(--ink);
+        font-size: 25px;
+        line-height: 1.25;
+      }
+
+      .section h3 {
+        margin: 0 0 5px;
+        font-size: 18px;
+        line-height: 1.35;
+      }
+
+      .section p {
+        margin: 0 0 10px;
+      }
+
+      .plain-list {
+        margin: 0;
+        padding-left: 21px;
+      }
+
+      .plain-list li {
+        margin: 5px 0;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 28px;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 17px;
+      }
+
+      .timeline-item {
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .timeline-item:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .media-list {
+        display: grid;
+        gap: 28px;
+      }
+
+      .media-item {
+        display: grid;
+        grid-template-columns: 224px minmax(0, 1fr);
+        gap: 22px;
+        align-items: start;
+      }
+
+      .media-thumb {
+        position: relative;
+        display: block;
+        min-height: 130px;
+        overflow: hidden;
+        border: 1px solid #bfdbfe;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+      }
+
+      .media-thumb img {
+        display: block;
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+      }
+
+      .thumb-placeholder {
+        display: grid;
+        min-height: 130px;
+        place-items: center;
+        padding: 18px;
+        color: var(--blue);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .badge {
+        position: absolute;
+        left: 0;
+        top: 12px;
+        max-width: calc(100% - 20px);
+        padding: 2px 12px;
+        border-radius: 0 4px 4px 0;
+        background: var(--blue-strong);
+        color: #ffffff;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .media-body h3 a {
+        color: var(--accent);
+      }
+
+      .authors strong {
+        color: var(--ink);
+      }
+
+      .venue {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      .item-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin: 8px 0;
+      }
+
+      details.brief {
+        margin-top: 8px;
+        color: var(--muted);
+      }
+
+      details.brief summary {
+        cursor: pointer;
+        color: var(--blue);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .footer {
+        padding: 28px 0 42px;
+        border-top: 1px solid var(--line);
+        color: var(--soft);
+        font-size: 14px;
+      }
+
+      @media (max-width: 760px) {
+        body {
+          font-size: 16px;
+        }
+
+        .shell {
+          width: min(100% - 28px, 960px);
+        }
+
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 14px 0;
+        }
+
+        .nav {
+          justify-content: flex-start;
+        }
+
+        .hero,
+        .split,
+        .media-item {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          gap: 18px;
+          padding-top: 32px;
+        }
+
+        .avatar {
+          width: 154px;
+          height: 154px;
+        }
+
+        .hero h1 {
+          font-size: 31px;
+        }
+
+        .media-thumb,
+        .media-thumb img,
+        .thumb-placeholder {
+          min-height: 170px;
+          height: 170px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="{{ .Site.Home.RelPermalink }}">{{ $name }}</a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#research">Research</a>
+          <a href="#publications">Publications</a>
+          <a href="#projects">Projects</a>
+          <a href="/uploads/resume.pdf">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero" id="about">
+        <div>
+          {{- if $avatarURL -}}
+            <img class="avatar" src="{{ $avatarURL }}" alt="{{ $name }}">
+          {{- else -}}
+            <div class="avatar" aria-hidden="true"></div>
+          {{- end -}}
+          <div class="links" aria-label="Profile links">
+            {{- range $author.links -}}
+              <a class="link-button" href="{{ .url }}" rel="noopener">{{ .label | default "Link" }}</a>
+            {{- end -}}
+            <a class="link-button primary" href="/uploads/resume.pdf">CV</a>
+          </div>
+        </div>
+        <div>
+          <h1>{{ $name }}</h1>
+          <p class="role">{{ $role }}</p>
+          {{- with $author.bio -}}
+            <div class="bio">{{ . | markdownify }}</div>
+          {{- end -}}
+        </div>
+      </section>
+
+      <section class="section split" id="research">
+        <div>
+          <h2>Research Interests</h2>
+          {{- with $author.interests -}}
+            <ul class="plain-list">
+              {{- range . -}}
+                <li>{{ . }}</li>
+              {{- end -}}
+            </ul>
+          {{- end -}}
+        </div>
+        <div>
+          <h2>Education</h2>
+          <div class="timeline">
+            {{- range $author.education -}}
+              <article class="timeline-item">
+                <h3>{{ .degree }}</h3>
+                <p class="meta">
+                  {{ .institution }}{{ with .location }} &middot; {{ . }}{{ end }}
+                  {{- if .start -}}
+                    &middot; {{ dateFormat "2006" .start }}-{{ with .end }}{{ dateFormat "2006" . }}{{ else }}Present{{ end }}
+                  {{- end -}}
+                </p>
+                {{- with .summary -}}
+                  <div class="summary">{{ . | markdownify }}</div>
+                {{- end -}}
+              </article>
+            {{- end -}}
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience">
+        <h2>Experience</h2>
+        <div class="timeline">
+          {{- range $author.experience -}}
+            <article class="timeline-item">
+              <h3>{{ .role }}</h3>
+              <p class="meta">
+                {{ .org }}{{ with .location }} &middot; {{ . }}{{ end }}
+                {{- if .start -}}
+                  &middot; {{ dateFormat "2006" .start }}-{{ with .end }}{{ dateFormat "2006" . }}{{ else }}Present{{ end }}
+                {{- end -}}
+              </p>
+              {{- with .summary -}}
+                <div class="summary">{{ . | markdownify }}</div>
+              {{- end -}}
+            </article>
+          {{- end -}}
+        </div>
+      </section>
+
+      <section class="section" id="publications">
+        <h2>Publications</h2>
+        <div class="media-list">
+          {{- range $publications.ByDate.Reverse -}}
+            {{- $page := . -}}
+            {{- $img := .Resources.GetMatch "featured.*" -}}
+            {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+            {{- $badge := .Params.publication_short | default "Publication" -}}
+            <article class="media-item">
+              <a class="media-thumb" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+                {{- with $img -}}
+                  {{- $thumb := .Fill "448x260 Center" -}}
+                  <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
+                {{- else -}}
+                  <span class="thumb-placeholder">Publication image</span>
+                {{- end -}}
+                <span class="badge">{{ $badge }}</span>
+              </a>
+              <div class="media-body">
+                <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                {{- with .Params.authors -}}
+                  <p class="meta authors">
+                    {{- range $i, $a := . -}}
+                      {{- if $i }}, {{ end -}}
+                      {{- if eq $a "me" -}}<strong>{{ $name }}</strong>{{- else -}}{{ $a }}{{- end -}}
+                    {{- end -}}
+                  </p>
+                {{- end -}}
+                {{- with .Params.publication -}}
+                  <p class="venue">{{ . }}</p>
+                {{- end -}}
+                <div class="item-links">
+                  {{- range .Params.links -}}
+                    {{- $label := .name | default .type | default "Link" -}}
+                    <a href="{{ .url }}" rel="noopener">
+                      {{- if eq (lower $label) "doi" -}}DOI{{- else -}}{{ $label | humanize }}{{- end -}}
+                    </a>
+                  {{- end -}}
+                  <a href="{{ .RelPermalink }}">Details</a>
+                </div>
+                {{- with .Summary -}}
+                  <details class="brief">
+                    <summary>Brief introduction</summary>
+                    <p>{{ . | plainify }}</p>
+                  </details>
+                {{- end -}}
+              </div>
+            </article>
+          {{- end -}}
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <h2>Projects</h2>
+        <div class="media-list">
+          {{- range $projects.ByDate.Reverse -}}
+            {{- $page := . -}}
+            {{- $img := .Resources.GetMatch "featured.*" -}}
+            {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+            {{- $badge := "Project" -}}
+            {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
+            <article class="media-item">
+              <a class="media-thumb" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+                {{- with $img -}}
+                  {{- $thumb := .Fill "448x260 Center" -}}
+                  <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
+                {{- else -}}
+                  <span class="thumb-placeholder">Project image</span>
+                {{- end -}}
+                <span class="badge">{{ $badge }}</span>
+              </a>
+              <div class="media-body">
+                <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                {{- with .Params.summary -}}
+                  <p>{{ . }}</p>
+                {{- end -}}
+                <div class="item-links">
+                  <a href="{{ .RelPermalink }}">Project Page</a>
+                  {{- range .Params.links -}}
+                    {{- $label := .name | default .type | default "Link" -}}
+                    <a href="{{ .url }}" rel="noopener">{{ $label | humanize }}</a>
+                  {{- end -}}
+                </div>
+              </div>
+            </article>
+          {{- end -}}
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell">
+        &copy; {{ now.Format "2006" }} {{ $name }}.
+      </div>
+    </footer>
+  </body>
+</html>
