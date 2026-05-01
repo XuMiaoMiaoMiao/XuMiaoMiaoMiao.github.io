@@ -1,0 +1,161 @@
+schema: hugoblox/author/v1
+slug: me
+is_owner: true
+
+name:
+  display: Miao Xu
+  given: Miao
+  family: Xu
+  alternate: "徐淼"
+  pronunciation: ""
+
+postnominals: []
+
+status:
+  icon: "✈️"
+
+role: Master's Student in Machine Learning, Systems and Control
+
+bio: |
+  I am a master's student in Machine Learning, Systems and Control at Lund University, supported by a full scholarship.
+  Previously, I was a research assistant at FAST Lab, Zhejiang University, where I worked on quadrotor control, air-ground cooperative robotics, and robust landing on dynamic platforms.
+  My research interests lie in robotics, learning-based control, model predictive control, computer vision, and autonomous aerial systems.
+
+affiliations:
+  - name: Lund University
+    url: https://www.lunduniversity.lu.se/
+  - name: FAST Lab, Zhejiang University
+    url: ""
+
+links:
+  - icon: at-symbol
+    url: mailto:your.email@example.com
+    label: Email
+  - icon: brands/github
+    url: https://github.com/your-github-username
+    label: GitHub
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/your-linkedin-id/
+    label: LinkedIn
+
+interests:
+  - Robotics and Autonomous Systems
+  - Learning-based Control
+  - Model Predictive Control
+  - UAV/UGV Cooperation
+  - Computer Vision
+
+education:
+  - degree: MSc in Machine Learning, Systems and Control
+    institution: Lund University
+    location: Sweden
+    start: 2025-09-01
+    end: ""
+    summary: |
+      Full scholarship.
+      Coursework: Learning-based Control, Computer Vision, Image Analysis, Artificial Neural Networks and Deep Learning, Monte Carlo and Empirical Methods for Stochastic Inference, Modelling and Learning from Data.
+  - degree: BSc in Control in Technical Systems with Honours; BSc in Automation
+    institution: ITMO University and Hangzhou Dianzi University
+    location: Russia and China
+    start: 2019-09-01
+    end: 2023-06-30
+    summary: |
+      Dual degree program.
+      GPA: 5.0/5.0 at ITMO University and 4.69/5.0 at Hangzhou Dianzi University.
+      Ranked 2/93 and graduated with honours.
+      Thesis: Research on Control Algorithm of Quadcopter, awarded Outstanding Undergraduate Thesis.
+
+experience:
+  - role: Research Assistant
+    org: FAST Lab, Zhejiang University
+    location: Zhejiang, China
+    start: 2023-07-01
+    end: 2025-08-31
+    summary: |
+      Worked on quadrotor control and air-ground cooperative robotics.
+      Developed a multiple non-inertial frames based air-ground cooperative framework for UAV transitions between UGVs.
+      Designed a phase-adaptive model predictive controller with a position reference scheme for cross-vehicle transition tasks.
+      Continued research on robust UAV landing on dynamic platforms using robocentric modelling and L1-adaptive MPC.
+  - role: Undergraduate Researcher
+    org: Hangzhou Dianzi University / ITMO University
+    location: Zhejiang, China
+    start: 2021-01-01
+    end: 2023-06-30
+    summary: |
+      Conducted projects in quadrotor control, portable rescue UAV development, post-disaster reconstruction, semantic segmentation, and object detection.
+
+skills:
+  - name: Programming
+    items:
+      - label: C++
+        level: 4
+      - label: C
+        level: 4
+      - label: Python
+        level: 4
+      - label: MATLAB
+        level: 4
+      - label: ROS
+        level: 4
+  - name: Robotics and Control
+    items:
+      - label: Model Predictive Control
+        level: 4
+      - label: Learning-based Control
+        level: 4
+      - label: UAV Control
+        level: 4
+      - label: Computer Vision
+        level: 4
+  - name: Tools
+    items:
+      - label: Linux
+        level: 4
+      - label: Gazebo
+        level: 4
+      - label: Git
+        level: 4
+      - label: Docker
+        level: 3
+      - label: SolidWorks
+        level: 3
+
+languages:
+  - name: English
+    level: 4
+    label: IELTS 7.0
+  - name: Chinese
+    level: 5
+    label: Native
+
+awards:
+  - title: Excellent Graduate of Zhejiang Province
+    awarder: Zhejiang Province
+    date: "2023-06-01"
+    summary: Top 4%.
+    icon: hero/trophy
+  - title: Outstanding Undergraduate Thesis
+    awarder: Hangzhou Dianzi University / ITMO University
+    date: "2023-06-01"
+    summary: Thesis selected for exhibition.
+    icon: hero/trophy
+  - title: Outstanding Paper Award, SHENZHEN CUP Mathematical Modeling Challenge
+    awarder: SHENZHEN CUP
+    date: "2021-01-01"
+    summary: Top 4%.
+    icon: hero/trophy
+  - title: National Second Prize, China Aeromodelling Design Challenge
+    awarder: China Aeromodelling Design Challenge
+    date: "2021-01-01"
+    summary: Awarded in 2020 and 2021.
+    icon: hero/trophy
+  - title: Scholarship of Zhejiang Province
+    awarder: Zhejiang Province
+    date: "2022-01-01"
+    summary: Top 5%; awarded in 2020, 2021, and 2022.
+    icon: hero/trophy
+  - title: First Prize Scholarship
+    awarder: Hangzhou Dianzi University
+    date: "2022-01-01"
+    summary: Top 5%; awarded in 2020, 2021, and 2022.
+    icon: hero/trophy

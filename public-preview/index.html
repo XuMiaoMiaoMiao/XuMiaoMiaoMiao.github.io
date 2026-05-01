@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Miao Xu | Robotics and Control</title>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #0f172a; background: #f8fafc; }
+    header { background: linear-gradient(135deg, #e0f2fe, #ffffff); padding: 56px 24px; }
+    .wrap { max-width: 1040px; margin: auto; }
+    .hero { display: flex; gap: 36px; align-items: center; flex-wrap: wrap; }
+    .hero img { width: 220px; height: 220px; object-fit: cover; border-radius: 999px; box-shadow: 0 20px 40px rgba(15,23,42,.16); }
+    h1 { font-size: 46px; margin: 0 0 8px; }
+    h2 { margin-top: 42px; font-size: 28px; }
+    .tag { color: #0369a1; font-weight: 700; }
+    .btn { display: inline-block; margin-top: 18px; padding: 12px 18px; border-radius: 10px; background: #0284c7; color: white; text-decoration: none; font-weight: 700; }
+    main { padding: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .card { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 8px 24px rgba(15,23,42,.05); }
+    .muted { color: #475569; }
+    li { margin: 7px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <img src="../assets/media/authors/me.jpg" alt="Miao Xu" />
+      <div>
+        <h1>Miao Xu</h1>
+        <div class="tag">Master's Student in Machine Learning, Systems and Control</div>
+        <p class="muted">Robotics · Learning-based Control · Model Predictive Control · UAV/UGV Cooperation</p>
+        <p>I study reliable autonomy for aerial and cooperative robotic systems, with recent work on quadrotor control, dynamic-platform landing, and air-ground cooperative robotics.</p>
+        <a class="btn" href="../static/uploads/resume.pdf">Download CV</a>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <h2>Research Direction</h2>
+    <div class="card">
+      <p>My research aims to build accurate, robust, and deployable control systems for autonomous robots. I am interested in combining model predictive control, adaptive control, and learning-based perception/control for UAVs and heterogeneous robot teams.</p>
+    </div>
+    <h2>Education</h2>
+    <div class="grid">
+      <div class="card"><b>Lund University</b><br><span class="muted">MSc, Machine Learning, Systems and Control · 2025–Present · Full Scholarship</span></div>
+      <div class="card"><b>ITMO University & Hangzhou Dianzi University</b><br><span class="muted">Dual BSc · Control in Technical Systems / Automation · Honours · Rank 2/93</span></div>
+    </div>
+    <h2>Selected Projects</h2>
+    <div class="grid">
+      <div class="card"><b>Air-Ground Cooperative Framework</b><p>Multiple non-inertial frames based UAV/UGV transition framework with phase-adaptive MPC.</p></div>
+      <div class="card"><b>Robust Landing on Dynamic Platforms</b><p>Robocentric modelling and L1-adaptive MPC using relative visual information.</p></div>
+      <div class="card"><b>Quadrotor Hollow Drum Detection</b><p>Close-wall flight and acoustic inspection for building exterior walls.</p></div>
+    </div>
+    <h2>Publication</h2>
+    <div class="card">
+      <b>COVER: cross-vehicle transition framework for quadrotor control in air-ground cooperation</b>
+      <p class="muted">Autonomous Robots, 49(3), 23, 2025. DOI: 10.1007/s10514-025-10209-4</p>
+    </div>
+  </main>
+</body>
+</html>

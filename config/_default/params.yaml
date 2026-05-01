@@ -1,0 +1,95 @@
+hugoblox:
+  schema: "2.0"
+
+identity:
+  name: "Miao Xu"
+  organization: ""
+  type: person
+  tagline: "Robotics · Learning-based Control · Aerial Systems"
+  description: "Miao Xu is a master's student in Machine Learning, Systems and Control at Lund University, working on robotics control, air-ground cooperation, and autonomous aerial systems."
+  social:
+    twitter: ""
+
+theme:
+  mode: system
+  pack: "default"
+  colors:
+    primary: "blue"
+    secondary: "sky"
+    neutral: "slate"
+
+typography:
+  pack: "academic"
+
+layout:
+  radius: "md"
+  spacing: "spacious"
+  avatar_shape: circle
+
+header:
+  enable: true
+  style: navbar
+  sticky: true
+  align: center
+  search: true
+  theme_toggle: true
+  theme_picker: false
+  language_switcher: false
+  cta:
+    enable: true
+    text: "Download CV"
+    url: "/uploads/resume.pdf"
+
+footer:
+  style: minimal
+  language_switcher: false
+  text: ""
+
+copyright:
+  notice: "© {year} {name}."
+  license:
+    type: custom
+    text: "All rights reserved."
+
+seo:
+  title: "Miao Xu | Robotics and Control"
+  ai:
+    allow:
+      - /
+    disallow: []
+    note: "Public academic portfolio for research applications."
+    contact: ""
+
+content:
+  math:
+    enable: true
+  toc:
+    enable: true
+  reading_time:
+    enable: false
+  citations:
+    style: ieee
+
+search:
+  enable: true
+
+comments:
+  enable: false
+
+analytics:
+  google:
+    measurement_id: ""
+
+repository:
+  enable: false
+  url: ""
+  branch: main
+  content_dir: content
+
+locale:
+  date_format: "Jan 2006"
+  time_format: "3:04 PM"
+  address_format: en-us
+
+pro:
+  hide_attribution: false
