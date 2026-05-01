@@ -1,0 +1,541 @@
+{{- $author := .Site.Data.authors.me -}}
+{{- $name := .Site.Title -}}
+{{- with $author.name.display }}{{ $name = . }}{{ end -}}
+{{- $role := $author.role | default .Site.Params.identity.tagline -}}
+{{- $avatar := resources.Get "media/authors/me.png" -}}
+{{- $avatarURL := "" -}}
+{{- with $avatar -}}
+  {{- $processed := .Fill "260x260 Center" -}}
+  {{- $avatarURL = $processed.RelPermalink -}}
+{{- end -}}
+{{- $publications := where .Site.RegularPages "Section" "publications" -}}
+{{- $projects := where .Site.RegularPages "Section" "projects" -}}
+{{- $news := .Site.Data.news -}}
+<!doctype html>
+<html lang="{{ .Site.Language.Lang | default "en" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $name }} | Robotics and Control</title>
+    <meta name="description" content="{{ .Site.Params.identity.description | default $author.bio | plainify }}">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #1f2937;
+        --muted: #4b5563;
+        --soft: #6b7280;
+        --blue: #003f73;
+        --blue-link: #1686c4;
+        --blue-deep: #06345f;
+        --paper: rgba(255, 255, 255, 0.84);
+        --paper-strong: #ffffff;
+        --shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(135deg, rgba(224, 242, 254, 0.92) 0%, rgba(255, 255, 255, 0.94) 36%, rgba(238, 242, 255, 0.9) 70%, rgba(248, 250, 252, 0.96) 100%),
+          #f8fafc;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 16px;
+        line-height: 1.58;
+      }
+
+      a {
+        color: var(--blue-link);
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: var(--blue-deep);
+        text-decoration: underline;
+      }
+
+      .page {
+        display: grid;
+        grid-template-columns: 230px minmax(0, 760px);
+        gap: 58px;
+        width: min(1080px, calc(100% - 44px));
+        margin: 0 auto;
+        padding: 54px 0 50px;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 36px;
+        align-self: start;
+        text-align: center;
+      }
+
+      .avatar {
+        width: 118px;
+        height: 118px;
+        margin: 0 auto 22px;
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        border-radius: 999px;
+        box-shadow: var(--shadow);
+        object-fit: cover;
+      }
+
+      .name {
+        margin: 0 0 14px;
+        color: var(--blue);
+        font-size: 27px;
+        line-height: 1.18;
+        font-weight: 700;
+      }
+
+      .side-role,
+      .side-meta,
+      .side-email {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .side-role {
+        font-size: 16px;
+      }
+
+      .side-meta,
+      .side-email {
+        font-size: 14px;
+      }
+
+      .side-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 24px;
+      }
+
+      .side-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        min-height: 28px;
+        border-radius: 4px;
+        color: var(--blue);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .side-links a:hover {
+        background: rgba(224, 242, 254, 0.9);
+        text-decoration: none;
+      }
+
+      .content {
+        min-width: 0;
+        border-radius: 8px;
+        background: var(--paper);
+        padding: 0 2px;
+      }
+
+      .section {
+        margin: 0 0 28px;
+      }
+
+      .section:last-child {
+        margin-bottom: 0;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        color: var(--blue);
+        font-size: 25px;
+        line-height: 1.24;
+        font-weight: 700;
+      }
+
+      h2 .note {
+        color: var(--soft);
+        font-size: 13px;
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      p {
+        margin: 0 0 14px;
+      }
+
+      .bio p,
+      .summary p {
+        margin: 0 0 14px;
+      }
+
+      .plain-list,
+      .news-list {
+        margin: 0;
+        padding-left: 24px;
+      }
+
+      .plain-list li,
+      .news-list li {
+        margin: 4px 0;
+      }
+
+      .news-date {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .media-list {
+        display: grid;
+        gap: 30px;
+        margin-top: 12px;
+      }
+
+      .media-item {
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 26px;
+        align-items: start;
+      }
+
+      .media-thumb {
+        position: relative;
+        display: block;
+        width: 220px;
+        min-height: 128px;
+        overflow: hidden;
+        border-radius: 6px;
+        background:
+          linear-gradient(135deg, rgba(224, 242, 254, 0.96), rgba(255, 255, 255, 0.98)),
+          #eff6ff;
+        box-shadow: 0 6px 15px rgba(15, 23, 42, 0.2);
+      }
+
+      .media-thumb img {
+        display: block;
+        width: 100%;
+        height: 128px;
+        object-fit: cover;
+      }
+
+      .thumb-placeholder {
+        display: grid;
+        min-height: 128px;
+        place-items: center;
+        padding: 16px;
+        color: var(--blue);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .badge {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        max-width: calc(100% - 18px);
+        padding: 2px 12px;
+        border-radius: 0 4px 4px 0;
+        background: var(--blue);
+        color: #ffffff;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
+      .media-body h3 {
+        margin: -2px 0 5px;
+        font-size: 16px;
+        line-height: 1.48;
+        font-weight: 700;
+      }
+
+      .media-body h3 a {
+        color: var(--blue-link);
+      }
+
+      .meta {
+        margin: 0 0 5px;
+        color: var(--ink);
+        font-size: 15px;
+      }
+
+      .authors strong {
+        color: #111827;
+        font-weight: 700;
+      }
+
+      .venue {
+        margin: 0 0 4px;
+        color: var(--muted);
+        font-size: 15px;
+        font-style: italic;
+      }
+
+      .item-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 7px 0 3px;
+      }
+
+      .item-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 22px;
+        border: 1px solid #111827;
+        border-radius: 0;
+        padding: 1px 9px;
+        background: var(--paper-strong);
+        color: #111827;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .item-links a:hover {
+        background: #eff6ff;
+        color: var(--blue);
+        text-decoration: none;
+      }
+
+      .status {
+        margin: 3px 0 0;
+        color: #dc2626;
+        font-size: 15px;
+        font-style: italic;
+      }
+
+      details.brief {
+        margin-top: 6px;
+        color: var(--muted);
+      }
+
+      details.brief summary {
+        cursor: pointer;
+        color: var(--blue);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .footer {
+        width: min(1080px, calc(100% - 44px));
+        margin: 0 auto;
+        padding: 0 0 36px 288px;
+        color: var(--soft);
+        font-size: 13px;
+      }
+
+      @media (max-width: 820px) {
+        body {
+          font-size: 15px;
+        }
+
+        .page {
+          grid-template-columns: 1fr;
+          gap: 30px;
+          width: min(100% - 28px, 760px);
+          padding-top: 34px;
+        }
+
+        .sidebar {
+          position: static;
+        }
+
+        .content {
+          background: rgba(255, 255, 255, 0.9);
+        }
+
+        .media-item {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+
+        .media-thumb {
+          width: 100%;
+          min-height: 174px;
+        }
+
+        .media-thumb img,
+        .thumb-placeholder {
+          height: 174px;
+          min-height: 174px;
+        }
+
+        .footer {
+          width: min(100% - 28px, 760px);
+          padding-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <aside class="sidebar" aria-label="Profile">
+        {{- if $avatarURL -}}
+          <img class="avatar" src="{{ $avatarURL }}" alt="{{ $name }}">
+        {{- else -}}
+          <div class="avatar" aria-hidden="true"></div>
+        {{- end -}}
+        <h1 class="name">{{ $name }}</h1>
+        <p class="side-role">{{ $role }}</p>
+        {{- with index $author.affiliations 0 -}}
+          <p class="side-meta">{{ .name }}</p>
+        {{- end -}}
+        {{- range $author.links -}}
+          {{- if eq .label "Email" -}}
+            <p class="side-email">{{ replace .url "mailto:" "" }}</p>
+          {{- end -}}
+        {{- end -}}
+        <nav class="side-links" aria-label="Profile links">
+          {{- range $author.links -}}
+            <a href="{{ .url }}" rel="noopener">{{ .label | default "Link" }}</a>
+          {{- end -}}
+          <a href="/uploads/resume.pdf">CV</a>
+        </nav>
+      </aside>
+
+      <div class="content">
+        <section class="section" id="about">
+          <h2>About Me</h2>
+          {{- with $author.bio -}}
+            <div class="bio">{{ . | markdownify }}</div>
+          {{- end -}}
+        </section>
+
+        <section class="section" id="research">
+          <h2>Research Interests</h2>
+          <p>
+            My research focuses on reliable autonomy for aerial and cooperative robotic systems,
+            including model predictive control, learning-based control, computer vision, and UAV/UGV cooperation.
+          </p>
+          <ul class="plain-list">
+            <li><strong>Robotics and Autonomous Systems:</strong> reliable autonomy for aerial robots and heterogeneous robot teams.</li>
+            <li><strong>Learning-based Control:</strong> data-driven modules integrated with interpretable model-based controllers.</li>
+            <li><strong>Model Predictive Control:</strong> robust tracking, landing, and transition control for quadrotors.</li>
+            <li><strong>UAV/UGV Cooperation:</strong> air-ground transfer tasks without relying on global state estimation.</li>
+            <li><strong>Computer Vision:</strong> relative visual feedback for landing, cooperation, and robot perception.</li>
+          </ul>
+        </section>
+
+        {{- with $news -}}
+          <section class="section" id="news">
+            <h2>News</h2>
+            <ul class="news-list">
+              {{- range . -}}
+                <li><span class="news-date">[{{ .date }}]</span> {{ .text | markdownify }}</li>
+              {{- end -}}
+            </ul>
+          </section>
+        {{- end -}}
+
+        <section class="section" id="publications">
+          <h2>Publications <span class="note">(Click for a brief introduction)</span></h2>
+          <div class="media-list">
+            {{- range $publications.ByDate.Reverse -}}
+              {{- $page := . -}}
+              {{- $img := .Resources.GetMatch "featured.*" -}}
+              {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+              {{- $badge := .Params.publication_short | default "Publication" -}}
+              <article class="media-item">
+                <a class="media-thumb" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+                  {{- with $img -}}
+                    {{- $thumb := .Fill "440x256 Center" -}}
+                    <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
+                  {{- else -}}
+                    <span class="thumb-placeholder">Publication image</span>
+                  {{- end -}}
+                  <span class="badge">{{ $badge }}</span>
+                </a>
+                <div class="media-body">
+                  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                  {{- with .Params.authors -}}
+                    <p class="meta authors">
+                      {{- range $i, $a := . -}}
+                        {{- if $i }}, {{ end -}}
+                        {{- if eq $a "me" -}}<strong>{{ $name }}</strong>{{- else -}}{{ $a }}{{- end -}}
+                      {{- end -}}
+                    </p>
+                  {{- end -}}
+                  {{- with .Params.publication -}}
+                    <p class="venue">{{ . }}</p>
+                  {{- end -}}
+                  <div class="item-links">
+                    {{- range .Params.links -}}
+                      {{- $label := .name | default .type | default "Link" -}}
+                      <a href="{{ .url }}" rel="noopener">
+                        {{- if eq (lower $label) "doi" -}}DOI{{- else -}}{{ $label | humanize }}{{- end -}}
+                      </a>
+                    {{- end -}}
+                    <a href="{{ .RelPermalink }}">Details</a>
+                  </div>
+                  {{- with .Params.status -}}
+                    <p class="status">{{ . }}</p>
+                  {{- end -}}
+                  {{- with .Summary -}}
+                    <details class="brief">
+                      <summary>Brief introduction</summary>
+                      <p>{{ . | plainify }}</p>
+                    </details>
+                  {{- end -}}
+                </div>
+              </article>
+            {{- end -}}
+          </div>
+        </section>
+
+        <section class="section" id="projects">
+          <h2>Projects</h2>
+          <div class="media-list">
+            {{- range $projects.ByDate.Reverse -}}
+              {{- $page := . -}}
+              {{- $img := .Resources.GetMatch "featured.*" -}}
+              {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+              {{- $badge := "Project" -}}
+              {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
+              <article class="media-item">
+                <a class="media-thumb" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+                  {{- with $img -}}
+                    {{- $thumb := .Fill "440x256 Center" -}}
+                    <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
+                  {{- else -}}
+                    <span class="thumb-placeholder">Project image</span>
+                  {{- end -}}
+                  <span class="badge">{{ $badge }}</span>
+                </a>
+                <div class="media-body">
+                  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                  {{- with .Params.summary -}}
+                    <p class="meta">{{ . }}</p>
+                  {{- end -}}
+                  <div class="item-links">
+                    <a href="{{ .RelPermalink }}">Project Page</a>
+                    {{- range .Params.links -}}
+                      {{- $label := .name | default .type | default "Link" -}}
+                      <a href="{{ .url }}" rel="noopener">{{ $label | humanize }}</a>
+                    {{- end -}}
+                  </div>
+                </div>
+              </article>
+            {{- end -}}
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      &copy; {{ now.Format "2006" }} {{ $name }}.
+    </footer>
+  </body>
+</html>
