@@ -577,9 +577,14 @@
               {{- end -}}
             {{- end -}}
             {{- range $ongoingWorks -}}
+              {{- $work := . -}}
               <article class="media-item">
-                <div class="media-thumb" aria-hidden="true">
-                  <span class="thumb-placeholder">On-going work</span>
+                <div class="media-thumb">
+                  {{- if and .image .image_file (fileExists .image_file) -}}
+                    <img src="{{ .image }}" alt="{{ $work.title | default "On-going work" }}">
+                  {{- else -}}
+                    <span class="thumb-placeholder">On-going work</span>
+                  {{- end -}}
                   <span class="badge">{{ .badge | default "On-going" }}</span>
                 </div>
                 <div class="media-body">
@@ -595,7 +600,8 @@
           <h2>Projects</h2>
           <div class="media-list">
             {{- range $projects.ByDate.Reverse -}}
-              {{- if not (in .RelPermalink "/projects/robust-landing-dynamic-platforms/") -}}
+              {{- $hideProject := or (in .RelPermalink "/projects/robust-landing-dynamic-platforms/") (in .RelPermalink "/projects/portable-rescue-uav/") (in .RelPermalink "/projects/air-ground-cooperation/") -}}
+              {{- if not $hideProject -}}
                 {{- $page := . -}}
                 {{- $img := .Resources.GetMatch "featured.*" -}}
                 {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
