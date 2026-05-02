@@ -519,7 +519,7 @@
           <p class="side-meta">{{ .name }}</p>
         {{- end -}}
         {{- range $author.links -}}
-          {{- if eq .label "Email" -}}
+          {{- if in .url "mailto:" -}}
             <p class="side-email">{{ replace .url "mailto:" "" }}</p>
           {{- end -}}
         {{- end -}}

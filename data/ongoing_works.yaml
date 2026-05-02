@@ -3,4 +3,4 @@
   url: /projects/safe-rl-bimanual-manipulation/
   image: /uploads/safe-rl-bimanual.jpg
   image_file: static/uploads/safe-rl-bimanual.jpg
-  summary: Developing safe reinforcement learning methods for dynamic bi-manual manipulation on a dual KUKA iiwa setup, with a focus on task design, safety constraints, and Lagrangian SAC.
+  summary: Developing safe reinforcement learning methods for a bi-manual peg-in-hole task in Isaac Sim, with a focus on safety constraints and Lagrangian SAC on a dual KUKA iiwa setup.
