@@ -19,11 +19,9 @@ role: Master's Student in Machine Learning, Systems and Control
 bio: |
   I am currently pursuing a master's degree in Machine Learning, Systems and Control at Lund University, supported by a full scholarship.
 
-  My research interests sit at the intersection of robotics, control, learning, and perception, with a focus on reliable autonomy for aerial and cooperative robotic systems. I am particularly interested in model predictive control, learning-based control, computer vision, and robust quadrotor autonomy in challenging real-world conditions.
+  Before starting my master's degree, I worked as a research assistant at FAST Lab, Zhejiang University, where I studied quadrotor control, air-ground cooperative robotics, and robust landing on dynamic platforms.
 
-  Before starting my master's degree, I worked as a research assistant at FAST Lab, Zhejiang University, where I studied quadrotor control, air-ground cooperative robotics, and robust landing on dynamic platforms. My recent work focused on relative-state modelling, phase-adaptive model predictive control, and UAV/UGV cooperation without relying heavily on global state estimation.
-
-  Prior to that, I received dual bachelor's degrees in Control in Technical Systems and Automation from ITMO University and Hangzhou Dianzi University, graduating with honours and ranking 2nd out of 93 students. My undergraduate thesis on quadcopter control was awarded Outstanding Undergraduate Thesis.
+  Prior to that, I received dual bachelor's degrees in Control in Technical Systems and Automation from ITMO University and Hangzhou Dianzi University, graduating with honours and ranking 2nd out of 93 students.
 
 affiliations:
   - name: Lund University
