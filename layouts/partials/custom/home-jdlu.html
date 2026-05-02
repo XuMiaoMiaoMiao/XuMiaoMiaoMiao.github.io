@@ -116,6 +116,20 @@
         font-size: 14px;
       }
 
+      .side-email a,
+      .bio a {
+        color: var(--blue-link);
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+
+      .side-email a:hover,
+      .bio a:hover {
+        color: var(--blue-deep);
+      }
+
       .side-links {
         display: flex;
         flex-wrap: wrap;
@@ -520,7 +534,7 @@
         {{- end -}}
         {{- range $author.links -}}
           {{- if in .url "mailto:" -}}
-            <p class="side-email">{{ replace .url "mailto:" "" }}</p>
+            <p class="side-email"><a href="{{ .url }}">{{ replace .url "mailto:" "" }}</a></p>
           {{- end -}}
         {{- end -}}
         <nav class="side-links" aria-label="Profile links">
