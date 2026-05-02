@@ -153,6 +153,13 @@
         fill: currentColor;
       }
 
+      .side-links .cv-link {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
       .content {
         min-width: 0;
         border-radius: 8px;
@@ -448,14 +455,7 @@
               {{- end -}}
             </a>
           {{- end -}}
-          <a href="/uploads/resume.pdf" aria-label="CV" title="CV">
-            <svg class="stroke-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M7 3h7l4 4v14H7z" />
-              <path d="M14 3v5h5" />
-              <path d="M9.5 13h5" />
-              <path d="M9.5 16h5" />
-            </svg>
-          </a>
+          <a class="cv-link" href="/uploads/resume.pdf" aria-label="CV" title="CV">CV</a>
         </nav>
       </aside>
 
