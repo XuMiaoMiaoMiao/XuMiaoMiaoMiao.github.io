@@ -41,11 +41,8 @@ links:
     label: LinkedIn
 
 interests:
-  - Robotics and Autonomous Systems
   - Learning-based Control
-  - Model Predictive Control
-  - UAV/UGV Cooperation
-  - Computer Vision
+  - Machine Learning and Optimal Control
 
 education:
   - degree: MSc in Machine Learning, Systems and Control
