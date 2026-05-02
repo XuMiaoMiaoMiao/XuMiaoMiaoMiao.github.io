@@ -10,6 +10,7 @@
 {{- end -}}
 {{- $publications := where .Site.RegularPages "Section" "publications" -}}
 {{- $projects := where .Site.RegularPages "Section" "projects" -}}
+{{- $ongoingWorks := .Site.Data.ongoing_works -}}
 {{- $news := .Site.Data.news -}}
 <!doctype html>
 <html lang="{{ .Site.Language.Lang | default "en" }}">
@@ -543,39 +544,88 @@
           </div>
         </section>
 
+        <section class="section" id="ongoing">
+          <h2>On-going Works</h2>
+          <div class="media-list">
+            {{- range $projects.ByDate.Reverse -}}
+              {{- if in .RelPermalink "/projects/robust-landing-dynamic-platforms/" -}}
+                {{- $page := . -}}
+                {{- $img := .Resources.GetMatch "featured.*" -}}
+                {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+                {{- $badge := "On-going" -}}
+                {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
+                <article class="media-item">
+                  <a class="media-thumb" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+                    {{- with $img -}}
+                      {{- $thumb := .Fill "440x256 Center" -}}
+                      <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
+                    {{- else -}}
+                      <span class="thumb-placeholder">On-going work</span>
+                    {{- end -}}
+                    <span class="badge">{{ $badge }}</span>
+                  </a>
+                  <div class="media-body">
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                    {{- with .Params.summary -}}
+                      <p class="meta">{{ . }}</p>
+                    {{- end -}}
+                    <div class="item-links">
+                      <a href="{{ .RelPermalink }}">Project Page</a>
+                    </div>
+                  </div>
+                </article>
+              {{- end -}}
+            {{- end -}}
+            {{- range $ongoingWorks -}}
+              <article class="media-item">
+                <div class="media-thumb" aria-hidden="true">
+                  <span class="thumb-placeholder">On-going work</span>
+                  <span class="badge">{{ .badge | default "On-going" }}</span>
+                </div>
+                <div class="media-body">
+                  <h3>{{ .title }}</h3>
+                  <p class="meta">{{ .summary }}</p>
+                </div>
+              </article>
+            {{- end -}}
+          </div>
+        </section>
+
         <section class="section" id="projects">
           <h2>Projects</h2>
           <div class="media-list">
             {{- range $projects.ByDate.Reverse -}}
-              {{- $page := . -}}
-              {{- $img := .Resources.GetMatch "featured.*" -}}
-              {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
-              {{- $badge := "Project" -}}
-              {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
-              <article class="media-item">
-                <a class="media-thumb" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
-                  {{- with $img -}}
-                    {{- $thumb := .Fill "440x256 Center" -}}
-                    <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
-                  {{- else -}}
-                    <span class="thumb-placeholder">Project image</span>
-                  {{- end -}}
-                  <span class="badge">{{ $badge }}</span>
-                </a>
-                <div class="media-body">
-                  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                  {{- with .Params.summary -}}
-                    <p class="meta">{{ . }}</p>
-                  {{- end -}}
-                  <div class="item-links">
-                    <a href="{{ .RelPermalink }}">Project Page</a>
-                    {{- range .Params.links -}}
-                      {{- $label := .name | default .type | default "Link" -}}
-                      <a href="{{ .url }}" rel="noopener">{{ $label | humanize }}</a>
+              {{- if not (in .RelPermalink "/projects/robust-landing-dynamic-platforms/") -}}
+                {{- $page := . -}}
+                {{- $img := .Resources.GetMatch "featured.*" -}}
+                {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+                {{- $badge := "Project" -}}
+                {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
+                <article class="media-item">
+                  <a class="media-thumb" href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+                    {{- with $img -}}
+                      {{- $thumb := .Fill "440x256 Center" -}}
+                      <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
+                    {{- else -}}
+                      <span class="thumb-placeholder">Project image</span>
                     {{- end -}}
+                    <span class="badge">{{ $badge }}</span>
+                  </a>
+                  <div class="media-body">
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                    {{- with .Params.summary -}}
+                      <p class="meta">{{ . }}</p>
+                    {{- end -}}
+                    <div class="item-links">
+                      <a href="{{ .RelPermalink }}">Project Page</a>
+                      {{- range .Params.links -}}
+                        {{- $label := .name | default .type | default "Link" -}}
+                        <a href="{{ .url }}" rel="noopener">{{ $label | humanize }}</a>
+                      {{- end -}}
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              {{- end -}}
             {{- end -}}
           </div>
         </section>

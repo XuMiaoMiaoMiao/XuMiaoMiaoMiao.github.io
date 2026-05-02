@@ -1,0 +1,3 @@
+- title: Safe Reinforcement Learning of Dynamic Bi-manual Manipulation Policies
+  badge: Safe RL
+  summary: Developing safe reinforcement learning methods for dynamic bi-manual manipulation, with a focus on constrained policy learning, safety-aware exploration, and coordinated control of two robotic arms in a shared workspace. The work involves building a digital twin of a dual KUKA iiwa setup, designing manipulation tasks and safety constraints, and evaluating constrained RL methods such as Lagrangian SAC and D-ATACOM.
