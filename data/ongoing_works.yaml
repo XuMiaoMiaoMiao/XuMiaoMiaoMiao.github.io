@@ -1,5 +1,6 @@
 - title: Safe Reinforcement Learning of Dynamic Bi-manual Manipulation Policies
   badge: Safe RL
+  url: /projects/safe-rl-bimanual-manipulation/
   image: /uploads/safe-rl-bimanual.jpg
   image_file: static/uploads/safe-rl-bimanual.jpg
   summary: Developing safe reinforcement learning methods for dynamic bi-manual manipulation on a dual KUKA iiwa setup, with a focus on task design, safety constraints, and Lagrangian SAC.
