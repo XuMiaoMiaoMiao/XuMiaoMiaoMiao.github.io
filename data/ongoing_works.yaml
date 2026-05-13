@@ -1,6 +1,8 @@
 - title: Safe Reinforcement Learning of Dynamic Bi-manual Manipulation Policies
   badge: Safe RL
   url: /projects/safe-rl-bimanual-manipulation/
+  video: /uploads/safe-rl-bimanual-demo.mp4
+  video_file: static/uploads/safe-rl-bimanual-demo.mp4
   image: /uploads/safe-rl-bimanual.jpg
   image_file: static/uploads/safe-rl-bimanual.jpg
   summary: Developing safe reinforcement learning methods for a bi-manual peg-in-hole task in Isaac Sim, with a focus on safety constraints and Lagrangian SAC on a dual KUKA iiwa setup.

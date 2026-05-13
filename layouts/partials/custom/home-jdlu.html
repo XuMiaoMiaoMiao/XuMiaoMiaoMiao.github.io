@@ -264,7 +264,8 @@
         text-align: inherit;
       }
 
-      .media-thumb img {
+      .media-thumb img,
+      .media-thumb video {
         display: block;
         width: 100%;
         height: 128px;
@@ -507,6 +508,7 @@
         }
 
         .media-thumb img,
+        .media-thumb video,
         .thumb-placeholder {
           height: 174px;
           min-height: 174px;
@@ -715,9 +717,13 @@
             {{- end -}}
             {{- range $i, $work := $ongoingWorks -}}
               {{- $modalID := printf "modal-ongoing-data-%d" $i -}}
+              {{- $hasVideo := and .video .video_file (fileExists .video_file) -}}
+              {{- $hasImage := and .image .image_file (fileExists .image_file) -}}
               <article class="media-item">
                 <button class="media-thumb" type="button" data-modal-open="{{ $modalID }}" aria-label="{{ .title }}">
-                  {{- if and .image .image_file (fileExists .image_file) -}}
+                  {{- if $hasVideo -}}
+                    <video src="{{ .video }}"{{ if $hasImage }} poster="{{ .image }}"{{ end }} autoplay muted loop playsinline preload="metadata"></video>
+                  {{- else if $hasImage -}}
                     <img src="{{ .image }}" alt="{{ $work.title | default "On-going work" }}">
                   {{- else -}}
                     <span class="thumb-placeholder">On-going work</span>
