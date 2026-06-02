@@ -465,6 +465,24 @@
         color: var(--ink);
       }
 
+      .modal-media {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        margin: 0 0 16px;
+        overflow: hidden;
+        border-radius: 6px;
+        background: #eff6ff;
+      }
+
+      .modal-media video,
+      .modal-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
       .modal-content p {
         margin: 0 0 13px;
       }
@@ -744,6 +762,15 @@
                     <h3 id="{{ $modalID }}-title">{{ .title }}</h3>
                     <p class="modal-meta">{{ .badge | default "On-going" }}</p>
                     <div class="modal-content">
+                      {{- if $hasVideo -}}
+                        <div class="modal-media">
+                          <video src="{{ .video }}"{{ if $hasImage }} poster="{{ .image }}"{{ end }} autoplay muted loop playsinline controls preload="metadata"></video>
+                        </div>
+                      {{- else if $hasImage -}}
+                        <div class="modal-media">
+                          <img src="{{ .image }}" alt="{{ $work.title | default "On-going work" }}">
+                        </div>
+                      {{- end -}}
                       <p>{{ .summary }}</p>
                     </div>
                   </div>
@@ -810,7 +837,7 @@
     </main>
 
     <footer class="footer">
-      &copy; {{ now.Format "2006" }} {{ $name }}.
+      &copy; {{ now.Format "2006" }} {{ $name }}. Powered by <a href="https://hugoblox.com/" rel="noopener">HugoBlox</a>.
     </footer>
     <script>
       (() => {
