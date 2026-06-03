@@ -730,49 +730,6 @@
         <section class="section" id="ongoing">
           <h2>On-going Works</h2>
           <div class="media-list">
-            {{- range $projects.ByDate.Reverse -}}
-              {{- if in .RelPermalink "/projects/robust-landing-dynamic-platforms/" -}}
-                {{- $page := . -}}
-                {{- $modalID := printf "modal-ongoing-%s" .File.UniqueID -}}
-                {{- $img := .Resources.GetMatch "featured.*" -}}
-                {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
-                {{- $badge := "On-going" -}}
-                {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
-                <article class="media-item">
-                  <button class="media-thumb" type="button" data-modal-open="{{ $modalID }}" aria-label="{{ .Title }}">
-                    {{- with $img -}}
-                      {{- $thumb := .Fill "440x256 Center" -}}
-                      <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
-                    {{- else -}}
-                      <span class="thumb-placeholder">On-going work</span>
-                    {{- end -}}
-                    <span class="badge">{{ $badge }}</span>
-                  </button>
-                  <div class="media-body">
-                    <h3><button class="modal-title-link" type="button" data-modal-open="{{ $modalID }}">{{ .Title }}</button></h3>
-                    {{- with .Params.summary -}}
-                      <p class="meta">{{ . }}</p>
-                    {{- end -}}
-                    <div class="item-links">
-                      <button type="button" data-modal-open="{{ $modalID }}">Details</button>
-                    </div>
-                  </div>
-                  <div class="modal" id="{{ $modalID }}" hidden>
-                    <button class="modal-backdrop" type="button" data-modal-close aria-label="Close"></button>
-                    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="{{ $modalID }}-title">
-                      <button class="modal-close" type="button" data-modal-close aria-label="Close">&times;</button>
-                      <h3 id="{{ $modalID }}-title">{{ .Title }}</h3>
-                      {{- with .Params.summary -}}
-                        <p class="modal-meta">{{ . }}</p>
-                      {{- end -}}
-                      <div class="modal-content">
-                        {{ .Content }}
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              {{- end -}}
-            {{- end -}}
             {{- range $i, $work := $ongoingWorks -}}
               {{- $modalID := printf "modal-ongoing-data-%d" $i -}}
               {{- $hasVideo := and .video .video_file (fileExists .video_file) -}}
@@ -820,6 +777,49 @@
                   </div>
                 </div>
               </article>
+            {{- end -}}
+            {{- range $projects.ByDate.Reverse -}}
+              {{- if in .RelPermalink "/projects/robust-landing-dynamic-platforms/" -}}
+                {{- $page := . -}}
+                {{- $modalID := printf "modal-ongoing-%s" .File.UniqueID -}}
+                {{- $img := .Resources.GetMatch "featured.*" -}}
+                {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+                {{- $badge := "On-going" -}}
+                {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
+                <article class="media-item">
+                  <button class="media-thumb" type="button" data-modal-open="{{ $modalID }}" aria-label="{{ .Title }}">
+                    {{- with $img -}}
+                      {{- $thumb := .Fill "440x256 Center" -}}
+                      <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
+                    {{- else -}}
+                      <span class="thumb-placeholder">On-going work</span>
+                    {{- end -}}
+                    <span class="badge">{{ $badge }}</span>
+                  </button>
+                  <div class="media-body">
+                    <h3><button class="modal-title-link" type="button" data-modal-open="{{ $modalID }}">{{ .Title }}</button></h3>
+                    {{- with .Params.summary -}}
+                      <p class="meta">{{ . }}</p>
+                    {{- end -}}
+                    <div class="item-links">
+                      <button type="button" data-modal-open="{{ $modalID }}">Details</button>
+                    </div>
+                  </div>
+                  <div class="modal" id="{{ $modalID }}" hidden>
+                    <button class="modal-backdrop" type="button" data-modal-close aria-label="Close"></button>
+                    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="{{ $modalID }}-title">
+                      <button class="modal-close" type="button" data-modal-close aria-label="Close">&times;</button>
+                      <h3 id="{{ $modalID }}-title">{{ .Title }}</h3>
+                      {{- with .Params.summary -}}
+                        <p class="modal-meta">{{ . }}</p>
+                      {{- end -}}
+                      <div class="modal-content">
+                        {{ .Content }}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              {{- end -}}
             {{- end -}}
           </div>
         </section>
