@@ -16,13 +16,9 @@ It is based on the current HugoBlox Academic CV template structure: `data/author
 
 ## Important placeholders to update before publishing
 
-Open `data/authors/me.yaml` and replace:
+Primary profile data and public links are maintained in `data/authors/me.yaml`.
 
-```yaml
-mailto:your.email@example.com
-https://github.com/your-github-username
-https://www.linkedin.com/in/your-linkedin-id/
-```
+The current public contact email is `mi1070xu-s@student.lu.se`.
 
 Open `config/_default/hugo.yaml` and replace:
 

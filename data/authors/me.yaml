@@ -31,9 +31,6 @@ affiliations:
 
 links:
   - icon: at-symbol
-    url: mailto:miaoxu010522@gmail.com
-    label: Gmail
-  - icon: at-symbol
     url: mailto:mi1070xu-s@student.lu.se
     label: Lund Email
   - icon: brands/google-scholar
@@ -42,9 +39,6 @@ links:
   - icon: brands/github
     url: https://github.com/XuMiaoMiaoMiao
     label: GitHub
-  - icon: brands/linkedin
-    url: https://www.linkedin.com/in/miao-xu-26033b396/
-    label: LinkedIn
 
 interests:
   - Learning-based Control

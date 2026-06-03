@@ -1,16 +1,28 @@
 ---
-title: Safe Reinforcement Learning of Dynamic Bi-manual Manipulation Policies
+title: Safe Reinforcement Learning for Bimanual Peg-in-Hole Manipulation
 date: 2026-03-01
-summary: Safe reinforcement learning for a bi-manual peg-in-hole task in Isaac Sim using Lagrangian SAC.
+summary: "Isaac Sim benchmark for constrained bimanual peg-in-hole manipulation, comparing SAC and Lagrangian SAC with rollout-level safety-cost analysis."
 tags:
   - Safe RL
   - Reinforcement Learning
   - Bi-manual Manipulation
+  - Isaac Sim
   - Robotics
+links:
+  - name: Code
+    url: "https://github.com/XuMiaoMiaoMiao/Safe_RL_Peg_in_hole"
 ---
 
-This ongoing work studies safe reinforcement learning for a bi-manual peg-in-hole task in Isaac Sim.
+**Course Project, Lund University, 2026.**
 
-The project focuses on a dual KUKA iiwa setup, task-specific safety constraints, and Lagrangian SAC for constrained policy learning.
+![Isaac Sim rollout for the bimanual peg-in-hole task.](featured.jpg)
 
-The broader goal is to develop manipulation policies that can coordinate two arms while respecting safety constraints during training and deployment.
+![Rollout-level safety-cost curve comparing SAC and Lagrangian SAC.](safety-cost.png)
+
+I built an Isaac Sim benchmark for bimanual peg-in-hole manipulation with two KUKA iiwa arms, where a 14-DoF joint-velocity policy coordinates the peg and hole.
+
+I formulated the task as a constrained reinforcement learning problem by separating geometric task reward from safety cost, using peg-in-hole progress as reward and clearance violations as the cost signal.
+
+I implemented SAC and Lagrangian SAC under the same environment, reward, cost, and evaluation protocol, with multi-seed training, deterministic evaluation, and rollout-level cost analysis.
+
+In the current 15-seed Stage-1 harder-pose benchmark, Lagrangian SAC reduced episodic cost from **4.011 to 2.456** and cumulative sphere-proxy clearance-violation events from **2575.0 to 516.8**, while maintaining comparable task performance.
