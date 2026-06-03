@@ -38,9 +38,9 @@ image:
 projects:
   - air-ground-cooperation
 slides: ""
+video:
+  embed_url: "https://player.bilibili.com/player.html?bvid=BV1oBYrzVEzV&page=1&autoplay=0&high_quality=1"
 ---
-
-![Smooth cross-vehicle quadrotor transition between moving UGVs in air-ground cooperation.](featured.png)
 
 This work introduces a transition framework for quadrotor operations across moving UGVs in air-ground cooperation.
 
