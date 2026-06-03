@@ -40,6 +40,8 @@ projects:
 slides: ""
 video:
   embed_url: "https://player.bilibili.com/player.html?bvid=BV1oBYrzVEzV&page=1&autoplay=0&high_quality=1"
+  preview_url: "/uploads/cover-preview.mp4"
+  preview_file: "static/uploads/cover-preview.mp4"
 ---
 
 This work introduces a transition framework for quadrotor operations across moving UGVs in air-ground cooperation.
