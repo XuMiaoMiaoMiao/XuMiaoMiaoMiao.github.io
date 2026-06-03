@@ -643,11 +643,19 @@
               {{- $modalID := printf "modal-publication-%s" .File.UniqueID -}}
               {{- $img := .Resources.GetMatch "featured.*" -}}
               {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+              {{- $coverVideo := .Resources.GetMatch "cover-preview.*" -}}
               {{- $badge := .Params.publication_short | default "Publication" -}}
               <article class="media-item">
                 <button class="media-thumb" type="button" data-modal-open="{{ $modalID }}" aria-label="{{ .Title }}">
-                  {{- with $img -}}
-                    {{- $thumb := .Fill "440x256 Center" -}}
+                  {{- with $coverVideo -}}
+                    {{- with $img -}}
+                      {{- $thumb := .Fill "440x256 Center" -}}
+                      <video src="{{ $coverVideo.RelPermalink }}" poster="{{ $thumb.RelPermalink }}" autoplay muted loop playsinline preload="metadata"></video>
+                    {{- else -}}
+                      <video src="{{ $coverVideo.RelPermalink }}" autoplay muted loop playsinline preload="metadata"></video>
+                    {{- end -}}
+                  {{- else if $img -}}
+                    {{- $thumb := $img.Fill "440x256 Center" -}}
                     <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
                   {{- else -}}
                     <span class="thumb-placeholder">Publication image</span>
