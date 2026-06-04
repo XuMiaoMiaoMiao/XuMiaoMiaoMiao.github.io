@@ -491,7 +491,23 @@
         object-fit: cover;
       }
 
+      .modal-slides {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        margin: 0 0 16px;
+        border-radius: 6px;
+        background: #eff6ff;
+      }
+
       .modal-media iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .modal-slides iframe {
         display: block;
         width: 100%;
         height: 100%;
@@ -734,6 +750,7 @@
               {{- $modalID := printf "modal-ongoing-data-%d" $i -}}
               {{- $hasVideo := and .video .video_file (fileExists .video_file) -}}
               {{- $hasImage := and .image .image_file (fileExists .image_file) -}}
+              {{- $hasSlides := and .slides .slides_file .slides_embed (fileExists .slides_file) -}}
               <article class="media-item">
                 <button class="media-thumb" type="button" data-modal-open="{{ $modalID }}" aria-label="{{ .title }}">
                   {{- if $hasVideo -}}
@@ -767,6 +784,17 @@
                         <div class="modal-media">
                           <img src="{{ .image }}" alt="{{ $work.title | default "On-going work" }}">
                         </div>
+                      {{- end -}}
+                      {{- if $hasSlides -}}
+                        <div class="modal-slides">
+                          <iframe
+                            src="{{ .slides_embed }}"
+                            title="{{ .title }} slides preview"
+                            loading="lazy"
+                            allowfullscreen>
+                          </iframe>
+                        </div>
+                        <p><a href="{{ .slides }}" rel="noopener">Download PPTX</a></p>
                       {{- end -}}
                       {{- with .details -}}
                         {{ . | markdownify }}

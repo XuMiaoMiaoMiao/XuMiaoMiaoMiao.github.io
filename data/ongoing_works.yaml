@@ -5,6 +5,9 @@
   video_file: static/uploads/safe-rl-bimanual-demo.mp4
   image: /uploads/safe-rl-bimanual.jpg
   image_file: static/uploads/safe-rl-bimanual.jpg
+  slides: /uploads/cs-project-safe-rl.pptx
+  slides_file: static/uploads/cs-project-safe-rl.pptx
+  slides_embed: "https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fxumiaomiaomiao.github.io%2Fuploads%2Fcs-project-safe-rl.pptx"
   summary: Isaac Sim benchmark for constrained bimanual peg-in-hole manipulation, comparing SAC and Lagrangian SAC through rollout-level safety-cost analysis.
   details: |
     I built an Isaac Sim benchmark for bimanual peg-in-hole manipulation with two KUKA iiwa arms, where a 14-DoF joint-velocity policy coordinates the peg and hole.
