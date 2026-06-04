@@ -1,0 +1,14 @@
+{{- $slides := .Page.Params.slides -}}
+{{- $slidesFile := .Page.Params.slides_file -}}
+{{- $slidesEmbed := .Page.Params.slides_embed -}}
+{{- if and $slides $slidesFile $slidesEmbed (fileExists $slidesFile) -}}
+  <div class="modal-slides">
+    <iframe
+      src="{{ $slidesEmbed }}"
+      title="{{ .Page.Title }} slides preview"
+      loading="lazy"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <p><a href="{{ $slides }}" rel="noopener">Download PPTX</a></p>
+{{- end -}}

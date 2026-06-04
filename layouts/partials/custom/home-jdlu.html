@@ -862,12 +862,26 @@
                 {{- $modalID := printf "modal-project-%s" .File.UniqueID -}}
                 {{- $img := .Resources.GetMatch "featured.*" -}}
                 {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
+                {{- $coverVideo := "" -}}
+                {{- $coverVideoFile := "" -}}
+                {{- with .Params.video -}}
+                  {{- with .preview_url }}{{ $coverVideo = . }}{{ end -}}
+                  {{- with .preview_file }}{{ $coverVideoFile = . }}{{ end -}}
+                {{- end -}}
+                {{- $hasCoverVideo := and $coverVideo $coverVideoFile (fileExists $coverVideoFile) -}}
                 {{- $badge := "Project" -}}
                 {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
                 <article class="media-item">
                   <button class="media-thumb" type="button" data-modal-open="{{ $modalID }}" aria-label="{{ .Title }}">
-                    {{- with $img -}}
-                      {{- $thumb := .Fill "440x256 Center" -}}
+                    {{- if $hasCoverVideo -}}
+                      {{- with $img -}}
+                        {{- $thumb := .Fill "440x256 Center" -}}
+                        <video src="{{ $coverVideo }}" poster="{{ $thumb.RelPermalink }}" autoplay muted loop playsinline preload="metadata"></video>
+                      {{- else -}}
+                        <video src="{{ $coverVideo }}" autoplay muted loop playsinline preload="metadata"></video>
+                      {{- end -}}
+                    {{- else if $img -}}
+                      {{- $thumb := $img.Fill "440x256 Center" -}}
                       <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
                     {{- else -}}
                       <span class="thumb-placeholder">Project image</span>

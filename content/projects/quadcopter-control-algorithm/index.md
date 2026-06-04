@@ -8,6 +8,12 @@ tags:
   - PID
   - Hardware-in-the-loop
   - AirSim
+video:
+  preview_url: /uploads/undergraduate-thesis-cover.mp4
+  preview_file: static/uploads/undergraduate-thesis-cover.mp4
+slides: /uploads/undergraduate-thesis-ppt-video-autoplay-loop.pptx
+slides_file: static/uploads/undergraduate-thesis-ppt-video-autoplay-loop.pptx
+slides_embed: "https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fxumiaomiaomiao.github.io%2Fuploads%2Fundergraduate-thesis-ppt-video-autoplay-loop.pptx"
 links:
   - name: Thesis
     url: "https://github.com/XuMiaoMiaoMiao/Quadcopter-control-algorithm_Graduation_Project/blob/main/Undergraduate_Thesis.pdf"
@@ -15,9 +21,7 @@ links:
 
 **Undergraduate Thesis, 2022-2023.**
 
-![AirSim hardware-in-the-loop validation with cascaded PID.](pid-hil.png)
-
-![AirSim hardware-in-the-loop validation with cascaded LADRC.](featured.png)
+{{< project-slides >}}
 
 I studied robust low-level control for quadcopter trajectory tracking under model uncertainty and external disturbances.
 
