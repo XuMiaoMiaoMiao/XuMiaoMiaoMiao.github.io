@@ -8,12 +8,26 @@ tags:
   - Bi-manual Manipulation
   - Isaac Sim
   - Robotics
+video:
+  preview_url: /uploads/safe-rl-bimanual-demo.mp4
+  preview_file: static/uploads/safe-rl-bimanual-demo.mp4
+  detail_url: /uploads/safe-rl-bimanual-demo.mp4
+  detail_file: static/uploads/safe-rl-bimanual-demo.mp4
+slides: /uploads/cs-project-safe-rl-video-autoplay-loop.pptx
+slides_file: static/uploads/cs-project-safe-rl-video-autoplay-loop.pptx
+slides_embed: "https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fxumiaomiaomiao.github.io%2Fuploads%2Fcs-project-safe-rl-video-autoplay-loop.pptx"
 links:
   - name: Code
     url: "https://github.com/XuMiaoMiaoMiao/Safe_RL_Peg_in_hole"
+  - name: Report
+    url: "/uploads/cs-project-report.pdf"
 ---
 
 **Course Project, Lund University, 2026.**
+
+{{< project-video >}}
+
+{{< project-slides >}}
 
 ![Isaac Sim rollout for the bimanual peg-in-hole task.](featured.jpg)
 

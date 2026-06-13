@@ -10,7 +10,6 @@
 {{- end -}}
 {{- $publications := where .Site.RegularPages "Section" "publications" -}}
 {{- $projects := where .Site.RegularPages "Section" "projects" -}}
-{{- $ongoingWorks := .Site.Data.ongoing_works -}}
 {{- $news := .Site.Data.news -}}
 <!doctype html>
 <html lang="{{ .Site.Language.Lang | default "en" }}">
@@ -743,121 +742,10 @@
           </div>
         </section>
 
-        <section class="section" id="ongoing">
-          <h2>On-going Works</h2>
-          <div class="media-list">
-            {{- range $i, $work := $ongoingWorks -}}
-              {{- $modalID := printf "modal-ongoing-data-%d" $i -}}
-              {{- $hasVideo := and .video .video_file (fileExists .video_file) -}}
-              {{- $hasImage := and .image .image_file (fileExists .image_file) -}}
-              {{- $hasSlides := and .slides .slides_file .slides_embed (fileExists .slides_file) -}}
-              <article class="media-item">
-                <button class="media-thumb" type="button" data-modal-open="{{ $modalID }}" aria-label="{{ .title }}">
-                  {{- if $hasVideo -}}
-                    <video src="{{ .video }}"{{ if $hasImage }} poster="{{ .image }}"{{ end }} autoplay muted loop playsinline preload="metadata"></video>
-                  {{- else if $hasImage -}}
-                    <img src="{{ .image }}" alt="{{ $work.title | default "On-going work" }}">
-                  {{- else -}}
-                    <span class="thumb-placeholder">On-going work</span>
-                  {{- end -}}
-                  <span class="badge">{{ .badge | default "On-going" }}</span>
-                </button>
-                <div class="media-body">
-                  <h3><button class="modal-title-link" type="button" data-modal-open="{{ $modalID }}">{{ .title }}</button></h3>
-                  <p class="meta">{{ .summary }}</p>
-                  <div class="item-links">
-                    <button type="button" data-modal-open="{{ $modalID }}">Details</button>
-                  </div>
-                </div>
-                <div class="modal" id="{{ $modalID }}" hidden>
-                  <button class="modal-backdrop" type="button" data-modal-close aria-label="Close"></button>
-                  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="{{ $modalID }}-title">
-                    <button class="modal-close" type="button" data-modal-close aria-label="Close">&times;</button>
-                    <h3 id="{{ $modalID }}-title">{{ .title }}</h3>
-                    <p class="modal-meta">{{ .badge | default "On-going" }}</p>
-                    <div class="modal-content">
-                      {{- if $hasVideo -}}
-                        <div class="modal-media">
-                          <video src="{{ .video }}"{{ if $hasImage }} poster="{{ .image }}"{{ end }} autoplay muted loop playsinline controls preload="metadata"></video>
-                        </div>
-                      {{- else if $hasImage -}}
-                        <div class="modal-media">
-                          <img src="{{ .image }}" alt="{{ $work.title | default "On-going work" }}">
-                        </div>
-                      {{- end -}}
-                      {{- if $hasSlides -}}
-                        <div class="modal-slides">
-                          <iframe
-                            src="{{ .slides_embed }}"
-                            title="{{ .title }} slides preview"
-                            loading="lazy"
-                            allowfullscreen>
-                          </iframe>
-                        </div>
-                        <p><a href="{{ .slides }}" rel="noopener">Download PPTX</a></p>
-                      {{- end -}}
-                      {{- with .details -}}
-                        {{ . | markdownify }}
-                      {{- else -}}
-                        <p>{{ .summary }}</p>
-                      {{- end -}}
-                    </div>
-                  </div>
-                </div>
-              </article>
-            {{- end -}}
-            {{- range $projects.ByDate.Reverse -}}
-              {{- if in .RelPermalink "/projects/robust-landing-dynamic-platforms/" -}}
-                {{- $page := . -}}
-                {{- $modalID := printf "modal-ongoing-%s" .File.UniqueID -}}
-                {{- $img := .Resources.GetMatch "featured.*" -}}
-                {{- if not $img }}{{ $img = .Resources.GetMatch "cover.*" }}{{ end -}}
-                {{- $badge := "On-going" -}}
-                {{- with .Params.tags }}{{ with index . 0 }}{{ $badge = . }}{{ end }}{{ end -}}
-                <article class="media-item">
-                  <button class="media-thumb" type="button" data-modal-open="{{ $modalID }}" aria-label="{{ .Title }}">
-                    {{- with $img -}}
-                      {{- $thumb := .Fill "440x256 Center" -}}
-                      <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}">
-                    {{- else -}}
-                      <span class="thumb-placeholder">On-going work</span>
-                    {{- end -}}
-                    <span class="badge">{{ $badge }}</span>
-                  </button>
-                  <div class="media-body">
-                    <h3><button class="modal-title-link" type="button" data-modal-open="{{ $modalID }}">{{ .Title }}</button></h3>
-                    {{- with .Params.summary -}}
-                      <p class="meta">{{ . }}</p>
-                    {{- end -}}
-                    <div class="item-links">
-                      <button type="button" data-modal-open="{{ $modalID }}">Details</button>
-                    </div>
-                  </div>
-                  <div class="modal" id="{{ $modalID }}" hidden>
-                    <button class="modal-backdrop" type="button" data-modal-close aria-label="Close"></button>
-                    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="{{ $modalID }}-title">
-                      <button class="modal-close" type="button" data-modal-close aria-label="Close">&times;</button>
-                      <h3 id="{{ $modalID }}-title">{{ .Title }}</h3>
-                      {{- with .Params.summary -}}
-                        <p class="modal-meta">{{ . }}</p>
-                      {{- end -}}
-                      <div class="modal-content">
-                        {{ .Content }}
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              {{- end -}}
-            {{- end -}}
-          </div>
-        </section>
-
         <section class="section" id="projects">
           <h2>Projects</h2>
           <div class="media-list">
             {{- range $projects.ByDate.Reverse -}}
-              {{- $hideProject := or (in .RelPermalink "/projects/robust-landing-dynamic-platforms/") (in .RelPermalink "/projects/air-ground-cooperation/") (in .RelPermalink "/projects/safe-rl-bimanual-manipulation/") -}}
-              {{- if not $hideProject -}}
                 {{- $page := . -}}
                 {{- $modalID := printf "modal-project-%s" .File.UniqueID -}}
                 {{- $img := .Resources.GetMatch "featured.*" -}}
@@ -915,7 +803,6 @@
                     </div>
                   </div>
                 </article>
-              {{- end -}}
             {{- end -}}
           </div>
         </section>

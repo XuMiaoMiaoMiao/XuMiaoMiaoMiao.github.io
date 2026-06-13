@@ -1,0 +1,9 @@
+{{- with .Page.Params.video -}}
+  {{- $detailURL := .detail_url -}}
+  {{- $detailFile := .detail_file -}}
+  {{- if and $detailURL $detailFile (fileExists $detailFile) -}}
+    <div class="modal-media">
+      <video src="{{ $detailURL }}" autoplay muted loop playsinline controls preload="metadata"></video>
+    </div>
+  {{- end -}}
+{{- end -}}
