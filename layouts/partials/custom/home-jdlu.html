@@ -746,6 +746,8 @@
           <h2>Projects</h2>
           <div class="media-list">
             {{- range $projects.ByDate.Reverse -}}
+              {{- $hideProject := in .RelPermalink "/projects/air-ground-cooperation/" -}}
+              {{- if not $hideProject -}}
                 {{- $page := . -}}
                 {{- $modalID := printf "modal-project-%s" .File.UniqueID -}}
                 {{- $img := .Resources.GetMatch "featured.*" -}}
@@ -803,6 +805,7 @@
                     </div>
                   </div>
                 </article>
+              {{- end -}}
             {{- end -}}
           </div>
         </section>
